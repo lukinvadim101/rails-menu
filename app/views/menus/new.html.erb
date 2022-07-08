@@ -1,0 +1,8 @@
+<h1> new menu</h1>
+<%= form_for @menu do |f| %>
+  <%= f.label :date %>
+  <%=f.date_select :date %>
+  <%= f.label :dishes %>
+  <%= f.collection_check_boxes :dishes, Dish.all, :id, :name %>
+  <%= f.submit %>
+<% end %>

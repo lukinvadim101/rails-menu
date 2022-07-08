@@ -1,0 +1,26 @@
+<h2 class='text-center'>Edit<%= @dish.name %></h2>
+
+<%= form_for @dish do |f| %>
+  <div class="my-2">
+    <%= f.label :name %>
+    <%= f.text_field :name , class: 'form-control' %>
+  </div>
+
+  <div>
+    <%= f.label :category_id %>
+    <%= f.select :category_id, Category.all.map{|c| [c.category,c.id]}, class: 'form-control'%><br />
+  </div>
+
+  <%= f.label :price_type %>
+  <%= f.select :price_type, ['By Weight', 'By Item'], class: 'form-control' %><br />
+  <div class="mt-2 d-flex">
+    <%= f.label :price %>
+    <%= f.text_field :price , class: 'form-control' %>
+  </div>
+  <div class='my-3'><%= f.submit 'Save', class: 'btn btn-outline-primary' %></div>
+<% end %>
+
+<%= link_to "Back to dish", dish_path %>
+<div class='mt-3'>
+  <%= link_to "Back to list", dishes_path %>
+</div>

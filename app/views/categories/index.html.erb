@@ -1,0 +1,21 @@
+
+<div class=" d-flex my-3">
+  <h2> Categories </h2>
+  <%= link_to "➕", new_category_path, class: 'text-decoration-none' %>
+</div>
+
+<div id="categories row d-flex justify-content-between" >
+  <% @categories.each do |category| %>
+      <ul class=" mb-2 list-group">
+        <li class=" fw-bold list-group-item w-25">
+          <%= category.category %>
+          <%= link_to 'ℹ️', edit_category_path(category[:id]) %>
+        </li>
+    </ul>
+  <% end %>
+
+
+
+</div>
+
+

@@ -1,0 +1,33 @@
+
+<h2 class='text-center mt-5'>Dish Details</h2>
+<div class='p-3 card'>
+  <div>
+    <b>Name: </b>
+    <%=@dish.name.capitalize %>
+  </div>
+
+  <div>
+    <b>Price: </b>
+    <%= @dish.price%>
+  </div>
+
+  <div>
+    <b>Category: </b>
+    <%= @category.category%>
+  </div>
+
+  <div>
+    <b>Price type: </b>
+    <%= @dish.price_type %>
+  </div>
+
+  <div class='mt-1'>
+    <%= button_to 'Delete', dish_path, method: :delete %>
+  </div>
+
+  <div class='mt-3'>
+    <%= link_to "Edit", edit_dish_path %>
+  </div>
+  <%= link_to "Back to list", dishes_path %>
+
+</div>
