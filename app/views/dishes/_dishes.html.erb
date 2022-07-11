@@ -1,0 +1,9 @@
+<% @dishes.each_with_index do |dish, index|%>
+
+  <div class=' card flex-row justify-content-around p-2'>
+    <div class="card-title h5 mb-0"> <%= dish.name %></div>
+    <div class="mx-2">
+      <%= link_to 'ℹ️', dish_path(dish.id), class: 'text-decoration-none font-weight-bold' %>
+    </div>
+  </div>
+<% end %>

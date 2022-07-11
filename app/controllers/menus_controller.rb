@@ -16,10 +16,8 @@ class MenusController < ApplicationController
 
   def destroy
     @menu.destroy
-
     redirect_to menus_path, notice: 'menu was deleted'
   end
-
 
   def update
     @menu.update(menu_params)

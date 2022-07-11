@@ -1,5 +1,5 @@
 <div class="row">
- <header class="mb-5">
+ <header class="mb-4">
    <h1 class='text-center mb-0'>
      <%= Date.today.strftime("%e %b %Y") %>
    </h1>
@@ -9,40 +9,26 @@
  </header>
   <div class='col-8 '>
     <div class="card">
-      <div class="card-header d-flex">
+      <div class="card-header d-flex justify-content-center">
         <h2> Dishes </h2>
         <%= link_to "➕", new_dish_path, class: 'text-decoration-none' %>
       </div>
       <div class="d-flex gap-3 m-3 ">
-        <% @dishes.each_with_index do |dish, index|%>
-
-          <div class=' card flex-row justify-content-around p-2'>
-            <div class="card-title h5 mb-0"> <%= dish.name %></div>
-            <div class="mx-2">
-              <%= link_to 'ℹ️', dish_path(dish.id), class: 'text-decoration-none font-weight-bold' %>
-            </div>
-          </div>
-        <% end %>
+         <%= render 'dishes' %>
       </div>
     </div>
   </div>
 
   <div class='col-4'>
     <div class="card">
-      <div class="card-header d-flex ">
-        <h2> <%= link_to 'Categories', categories_path, class: 'text-decoration-none' %> </h2>
+      <div class="card-header d-flex justify-content-center">
+        <h2>
+          <%= link_to 'Categories', categories_path, class: 'text-decoration-none' %>
+        </h2>
         <%= link_to "➕", new_category_path, class: 'text-decoration-none' %>
       </div>
-
       <div class="d-flex gap-3 m-3">
-        <% @categories.each do |category| %>
-          <button type="button" class="card p-2">
-            <%= link_to category[:category],edit_category_path(category[:id]), class: "text-decoration-none" %>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
-            <%= category.dishes.count %>
-          </span>
-          </button>
-        <% end %>
+        <%= render 'categories_with_dish_count' %>
       </div>
     </div>
   </div>
@@ -53,17 +39,9 @@
        <h2 class="">   <%= link_to "Menus", menus_path, class: 'text-decoration-none text-primary' %> </h2>
        <%= link_to "➕", new_menu_path, class: 'text-decoration-none' %>
       </div>
-
-      <ul class="  list-group">
-        <% @menus.each do |m| %>
-          <li class="list-group-item">
-            <%= m.date%> :
-            <% m.dishes.reject!(&:empty?).each do |element| %>
-            <%= Dish.find(element).name %>,
-          <% end %>
-          </li>
-        <% end %>
-      </ul>
+       <div class="d-flex mt-1">
+         <%= render 'menus/render_menu' %>
+       </div>
     </div>
   </div>
 </div>

@@ -5,7 +5,7 @@ class DishesController < ApplicationController
     @dish = Dish.create(dish_params)
 
     if @dish.save
-      redirect_to new_dish_path, notice: 'dish was created'
+      redirect_to dishes_path, notice: 'dish was created'
     end
   end
 
@@ -16,9 +16,14 @@ class DishesController < ApplicationController
   end
 
   def destroy
-    @dish.destroy
 
-    redirect_to dishes_path, notice: 'dish was deleted'
+    if Menu.where.not(dishes include @dish[:id]).nil?
+      @dish.destroy
+      redirect_to dishes_path, notice: 'dish was deleted'
+    else
+      redirect_to dishes_path, notice: "Dish can't be destroyed."
+    end
+
   end
 
   def show
