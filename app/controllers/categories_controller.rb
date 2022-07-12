@@ -31,12 +31,11 @@ class CategoriesController < ApplicationController
     end
 
     def destroy
-
-      if Dish.find_by(category_id: @category[:id]).nil?
-        @category.destroy
-        redirect_to categories_path, notice: "Category was destroyed."
+      if Dish.find_by(category_id: @category[:id])
+        redirect_to categories_path, notice: "Err! Category has dishes"
       else
-        redirect_to categories_path, notice: "Category can't be destroyed."
+        @category.destroy
+        redirect_to categories_path, notice: "Category  destroyed"
       end
     end
 

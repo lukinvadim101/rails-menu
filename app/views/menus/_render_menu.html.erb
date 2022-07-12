@@ -12,29 +12,17 @@
 
         <% acc = [] %>
         <% m.dishes.reject!(&:empty?).each do |idx| %>
-          <% if !Dish.exists?(:id => idx) %>
-           <% return %>
-          <% end %>
           <% dish = @dishes.find(idx)%>
-          <% acc << dish
-          #      {
-          #   category: dish.category_id,
-          #   name: dish.name,
-          #   price: dish.price,
-          #   price_type: dish.price_type
-          # }
-          %>
-
+          <% acc << dish %>
         <% end %>
 
-        <% acc = acc.group_by{ |d| d[:category]} %>
-
+        <% acc = acc.group_by{ |d| d[:category_id]} %>
         <% acc.each  do |key, val| %>
           <ul class="list-group">
             <span class="fw-bold text-center my-2">  <%= @categories.find(key).category %>s </span>
             <% val.each do |dish| %>
               <li class="list-group-item d-flex justify-content-between" >
-                <%= dish[:name] %>
+              <%= dish[:name] %>
                 <span>
                   <%= render_dish_type(dish[:price])  %>  /  <%= dish[:price] %>
                 </span>
@@ -47,3 +35,8 @@
   </div>
 
 <% end %>
+
+
+
+
+<!--[nil, [#<Dish id: 1, name: "Margarita", category_id: 1, price_type: "By Item", price: 222, created_at: "2022-07-12 17:39:26", updated_at: "2022-07-12 17:39:26">]]-->

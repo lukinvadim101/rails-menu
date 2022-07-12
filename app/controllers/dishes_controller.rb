@@ -16,14 +16,14 @@ class DishesController < ApplicationController
   end
 
   def destroy
+    @menus = Menu.all
 
-    if Menu.where.not(dishes include @dish[:id]).nil?
-      @dish.destroy
-      redirect_to dishes_path, notice: 'dish was deleted'
+    if  @menus.map{ |m| m.dishes.include? @dish[:id].to_s}.first == true
+      redirect_to dishes_path, notice: "Err! Dish included in menu"
     else
-      redirect_to dishes_path, notice: "Dish can't be destroyed."
+      @dish.destroy
+      redirect_to dishes_path, notice: " Dish was destroyed "
     end
-
   end
 
   def show
@@ -34,6 +34,8 @@ class DishesController < ApplicationController
     @menus = Menu.all
     @categories = Category.all
     @dishes = Dish.all
+
+
   end
 
   def new
