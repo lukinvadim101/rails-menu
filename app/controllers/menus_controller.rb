@@ -2,6 +2,7 @@ class MenusController < ApplicationController
   before_action :set_menu, only: %i[ show edit update destroy ]
 
   def new
+    @categories = Category.all
     @menu = Menu.new
   end
 
