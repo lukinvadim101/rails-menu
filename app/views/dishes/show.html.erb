@@ -1,33 +1,37 @@
 
-<h2 class='text-center mt-5'>Dish Details</h2>
-<div class='p-3 card'>
-  <div>
-    <b>Name: </b>
-    <%=@dish.name.capitalize %>
-  </div>
+<h2 class='text-center my-5'> <%=@dish.name.capitalize %> Details</h2>
+<div class="d-flex justify-content-center">
+  <div class='p-3 card w-25 p-5'>
+    <span>
+      <b>Name:</b>
+      <%=@dish.name.capitalize %>
+    </span>
 
-  <div>
-    <b>Price: </b>
-    <%= @dish.price%>
-  </div>
+    <span>
+      <b>Price: </b>
+      <%= @dish.price%>
+    </span>
 
-  <div>
-    <b>Category: </b>
-    <%= @category.category%>
-  </div>
+    <span>
+      <b>Category: </b>
+      <%= @category.category%>
+    </span>
 
-  <div>
-    <b>Price type: </b>
-    <%= @dish.price_type %>
-  </div>
+    <span>
+     <b>Price type: </b>
+      <%= @dish.price_type %>
+    </span>
 
-  <div class='mt-1'>
-    <%= button_to 'Delete', dish_path, method: :delete %>
+    <hr class="mx-1">
+    <div class='mt-1 btn-group d-flex justify-content-center'>
+      <%= button_to dish_path, method: :delete, class:"btn px-4" do %>
+        <i class="fa-solid fa-trash"></i>
+      <%end %>
+      <div>
+        <%= link_to  edit_dish_path , class:"btn px-4" do %>
+          <i class="fa-solid fa-gear"></i>
+        <%end %>
+      </div>
+    </div>
   </div>
-
-  <div class='mt-3'>
-    <%= link_to "Edit", edit_dish_path %>
-  </div>
-  <%= link_to "Back to list", dishes_path %>
-
 </div>

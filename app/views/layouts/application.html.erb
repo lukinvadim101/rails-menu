@@ -4,31 +4,50 @@
     <title>RailsMenu</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-
     <%#= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%#= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-         <%= link_to 'Home',dishes_path, class: "nav-item nav-link" %>
-        <%= link_to 'Categories',categories_path, class: "nav-item nav-link" %>
-        <%= link_to 'Menus',menus_path, class: "nav-item nav-link" %>
+      <div class="navbar-nav justify-content-between d-inline-flex w-100">
+        <% if user_signed_in? %>
+       <span class="d-inline-flex mx-2">
+
+         <%= link_to 'Home',root_path, class: "nav-item nav-link" %>
+         <%= link_to 'Dishes',dishes_path, class: "nav-item nav-link" %>
+         <%= link_to 'Categories',categories_path, class: "nav-item nav-link" %>
+         <%= link_to 'Menus',menus_path, class: "nav-item nav-link" %>
+       </span>
+       <span class="d-inline-flex mx-2 justify-self-end" >
+         <%= link_to current_user.email, edit_user_registration_path, class: 'text-muted py-2 mx-2
+         text-decoration-none' %>
+         <%= button_to 'Log Out', destroy_user_session_path, method: :delete, class: 'btn btn-outline-secondary mx-2 py-2' %>
+       </span>
+        <%  else %>
+        <div>
+          <%= link_to 'Log In ', new_user_session_path, class: 'btn btn-outline-secondary  py-2'  %>
+          <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-outline-secondary py-2'  %>
+        </div>
+        <% end %>
       </div>
     </div>
   </nav>
   <div class='container mt-4'>
     <% if flash[:notice].present? %>
-      <p class='text-center mt-3 alert alert-warning alert-dismissible fade show'>
+      <p class='text-center alert alert-warning alert-dismissible fade show'>
         <%= flash[:notice]%>
       </p>
     <% end %>
+
+    <%   if alert.present?  %>
+      <p class="alert"><%= alert %></p>
+    <% end %>
+
     <%= yield %>
   </div>
   </body>

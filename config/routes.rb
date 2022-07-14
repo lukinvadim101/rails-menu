@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-    root 'dishes#index'
+  devise_for :users
+  root 'home#index'
 
-    resources :dishes
-    resources :categories
-    resources :menus
+  resources :dishes
+  resources :categories
+  resources :menus
+
+  get 'index', to: 'home#index'
+  get 'login', to: 'home#login'
 end
