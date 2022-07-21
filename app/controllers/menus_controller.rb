@@ -4,6 +4,7 @@ class MenusController < ApplicationController
   def new
     @categories = Category.all
     @menu = Menu.new
+    @dishMenu = DishMenu.all
   end
 
   def index
@@ -46,6 +47,6 @@ class MenusController < ApplicationController
   end
 
   def menu_params
-    params.require(:menu).permit(:date, dishes:[])
+    params.require(:menu).permit(:date, dish_ids:[])
   end
 end

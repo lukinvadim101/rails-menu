@@ -4,6 +4,6 @@
   <%= f.label :date %>
   <%=f.date_select :date %>
   <%= f.label :dishes %>
-  <%= f.collection_check_boxes :dishes, Dish.all, :id, :name, checked: @menu.dishes %>
+  <%= f.collection_check_boxes :dish_ids, Dish.all, :id, :name, checked: @menu.dish_ids %>
   <%= f.submit %>
 <% end %>
