@@ -17,7 +17,7 @@ class MenusController < ApplicationController
 
   def destroy
     @menu.destroy
-    redirect_to dishes_path, notice: 'menu was deleted'
+    redirect_to root_path, notice: 'menu was deleted'
   end
 
   def update
@@ -32,7 +32,7 @@ class MenusController < ApplicationController
     @dishes = Dish.all
 
     if @menu.save
-      redirect_to new_menu_path, notice: 'Menu was created'
+      redirect_to root_path, notice: 'Menu was created'
     end
   end
 

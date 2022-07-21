@@ -1,5 +1,5 @@
 <% @menus.each do |m| %>
-  <div class="card px-0 " style="min-width: 300px;" >
+  <div class="card px-0 m-1 " style="min-width: 32%;" >
     <div class="card-header d-flex px-3 justify-content-between align-center" style="background-color: #8EB3CD;">
       <h5 class=" d-flex card-title m-2 "><%= m.date %></h5>
       <span class="d-flex">
@@ -15,10 +15,8 @@
       <div class=" gap-2" >
         <% acc = [] %>
         <% total = 0 %>
+        <% m.dishes.each {|idx| acc << @dishes.find(idx) if !idx.empty?} %>
 
-        <% m.dishes.reject!(&:empty?).each do |idx| %>
-          <% acc << @dishes.find(idx) %>
-        <% end %>
         <% acc.group_by{ |dish| dish[:category_id]}.each  do |key, val| %>
           <ul class="list-group">
             <span class="fw-bold text-center mb-2">  <%= @categories.find(key).category %> </span>

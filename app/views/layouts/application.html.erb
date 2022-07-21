@@ -16,23 +16,22 @@
     <div class="container" id="navbarNavAltMarkup">
       <div class="navbar-nav justify-content-between d-inline-flex w-100">
         <% if user_signed_in? %>
-       <span class="d-inline-flex mx-2">
-
-         <%= link_to 'Home',root_path, class: "nav-item nav-link" %>
-         <%= link_to 'Dishes',dishes_path, class: "nav-item nav-link" %>
-         <%= link_to 'Categories',categories_path, class: "nav-item nav-link" %>
-         <%= link_to 'Menus',menus_path, class: "nav-item nav-link" %>
-       </span>
-       <span class="d-inline-flex mx-2 justify-self-end" >
-         <%= link_to current_user.email, edit_user_registration_path, class: 'text-muted py-2 mx-2
-         text-decoration-none' %>
-         <%= button_to 'Log Out', destroy_user_session_path, method: :delete, class: 'btn btn-outline-secondary mx-2 py-2' %>
-       </span>
+         <span class="d-inline-flex mx-2">
+           <%= link_to 'Home',root_path, class: "nav-item nav-link" %>
+           <%= link_to 'Dishes',dishes_path, class: "nav-item nav-link" %>
+           <%= link_to 'Categories',categories_path, class: "nav-item nav-link" %>
+           <%= link_to 'Menus',menus_path, class: "nav-item nav-link" %>
+         </span>
+         <span class="d-inline-flex mx-2 justify-self-end" >
+           <%= link_to current_user.email, edit_user_registration_path, class: 'text-muted py-2 mx-2
+           text-decoration-none' %>
+           <%= button_to 'Log Out', destroy_user_session_path, method: :delete, class: 'btn btn-outline-secondary mx-2 py-2' %>
+         </span>
         <%  else %>
-        <div>
-          <%= link_to 'Log In ', new_user_session_path, class: 'btn btn-outline-secondary  py-2'  %>
-          <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-outline-secondary py-2'  %>
-        </div>
+          <div>
+            <%= link_to 'Log In ', new_user_session_path, class: 'btn btn-outline-secondary  py-2'  %>
+            <%= link_to 'Sign Up', new_user_registration_path, class: 'btn btn-outline-secondary py-2'  %>
+          </div>
         <% end %>
       </div>
     </div>
@@ -44,8 +43,8 @@
       </p>
     <% end %>
 
-    <%   if alert.present?  %>
-      <p class="alert"><%= alert %></p>
+    <% if flash[:alert].present?  %>
+      <p class="alert alert-danger"><%= flash[:alert] %></p>
     <% end %>
 
     <%= yield %>
