@@ -1,10 +1,10 @@
 class MenusController < ApplicationController
-  before_action :set_menu, only: %i[ show edit update destroy ]
+  before_action :set_menu, only: %i[show edit update destroy]
 
   def new
-    @categories = Category.all
+    # @categories = Category.all
+    @dishes = Dish.all
     @menu = Menu.new
-    @dishMenu = DishMenu.all
   end
 
   def index
@@ -13,8 +13,7 @@ class MenusController < ApplicationController
     @categories = Category.all
   end
 
-  def edit
-  end
+  def edit; end
 
   def destroy
     @menu.destroy
@@ -23,22 +22,19 @@ class MenusController < ApplicationController
 
   def update
     @menu.update(menu_params)
-
     redirect_to menus_path(@menu), notice: 'menu was updated'
   end
-
 
   def create
     @menu = Menu.create(menu_params)
     @dishes = Dish.all
 
-    if @menu.save
-      redirect_to root_path, notice: 'Menu was created'
-    end
+    #
+    # Post.create(content: params[:post][:content], category: category)
+    redirect_to root_path, notice: 'Menu was created' if @menu.save
   end
 
-  def show
-  end
+  def show; end
 
   private
 
@@ -47,6 +43,7 @@ class MenusController < ApplicationController
   end
 
   def menu_params
-    params.require(:menu).permit(:date, dish_ids:[])
+    # dish = DishMenu.find_or_create_by(price: params[:menu][:dish_menus_attributes][:price])
+    params.require(:menu).permit(:date, dish_ids: [], dish_menus: [:price])
   end
 end
