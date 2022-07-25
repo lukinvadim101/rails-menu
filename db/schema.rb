@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_21_164854) do
+ActiveRecord::Schema.define(version: 2022_07_25_173506) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "category"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2022_07_21_164854) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "dish_id"
     t.integer "menu_id"
+    t.boolean "included"
   end
 
   create_table "dishes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
