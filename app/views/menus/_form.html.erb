@@ -11,13 +11,13 @@
 
     <% Category.all.each do |category|  %>
       <%= category.category %>
-        <% category.dishes.each do |dish| %>
+        <% category.dishes.each  do | dish| %>
           <%= menu_form.fields_for :dish_menus do |dish_menus_form| %>
             <div class="d-flex justify-content-between align-items-center my-1">
               <div class="mb-1 mx-2">
                 <%= dish_menus_form.check_box :included, checked: dish_included_in_menu?(@menu.id, dish.id) %>
               </div>
-              <h5>  <%= dish.name %></h5>
+              <h5>  <%= dish.name %> </h5>
               <div class="d-flex justify-content-end align-items-center ">
                 <%= dish_menus_form.label :price, '$' %>
                 <span class="mx-2"> <%= dish.price_type %> </span>

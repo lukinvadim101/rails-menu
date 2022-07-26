@@ -1,13 +1,11 @@
 class Menu < ApplicationRecord
   has_many :dish_menus
   has_many :dishes, through: :dish_menus
+  before_save :call_before_save
 
-  # accepts_nested_attributes_for :dish_menus
+  accepts_nested_attributes_for :dish_menus, reject_if: proc { |attributes| attributes['included'] == '0' }
 
-  def dish_menus_attributes=(dish_menus_attributes)
-    dish_menus_attributes.each_value do |dish_menus_attribute|
-      dish_menu = DishMenu.find_or_create_by(dish_menus_attribute)
-      dish_menus << dish_menu
-    end
+  def call_before_save
+    puts dish_menus.inspect
   end
 end

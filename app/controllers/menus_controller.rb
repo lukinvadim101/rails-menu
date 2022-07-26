@@ -1,6 +1,7 @@
 class MenusController < ApplicationController
   before_action :set_menu, only: %i[show edit update destroy]
 
+
   def new
     @menu = Menu.new
     @dish_menu = @menu.dish_menus.build
@@ -21,7 +22,7 @@ class MenusController < ApplicationController
 
   def update
     @menu.update(menu_params)
-    redirect_to root_path, notice: 'menu was updated'
+    redirect_to root_path, notice: 'menu was updated' if @menu.save
   end
 
   def create
