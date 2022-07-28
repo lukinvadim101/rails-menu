@@ -1,0 +1,11 @@
+<% @categories.each do |category| %>
+  <div type="button" class="card p-2 text-center" style="min-width: 33%">
+    <%= link_to category[:category],
+        category_path(category[:id]),
+        class: "text-primary  card-title h5 mb-0 text-decoration-none "
+    %>
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+      <%= category.dishes.count %>
+    </span>
+  </div>
+<% end %>

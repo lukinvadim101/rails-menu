@@ -5,7 +5,7 @@ class DishesController < ApplicationController
     @dish = Dish.create(dish_params)
 
     if @dish.save
-      redirect_to new_dish_path, notice: 'dish was created'
+      redirect_to dishes_path, notice: 'dish was created'
     end
   end
 
@@ -16,9 +16,14 @@ class DishesController < ApplicationController
   end
 
   def destroy
-    @dish.destroy
+    @menus = Menu.all
 
-    redirect_to dishes_path, notice: 'dish was deleted'
+    if  @menus.map{ |m| m.dishes.include? @dish[:id].to_s}.first == true
+      redirect_to dishes_path, notice: "Err! Dish included in menu"
+    else
+      @dish.destroy
+      redirect_to dishes_path, notice: " Dish was destroyed "
+    end
   end
 
   def show
@@ -29,6 +34,8 @@ class DishesController < ApplicationController
     @menus = Menu.all
     @categories = Category.all
     @dishes = Dish.all
+
+
   end
 
   def new

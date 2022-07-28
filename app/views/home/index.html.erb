@@ -1,0 +1,52 @@
+<div class="row">
+  <%= @f %>
+  <header class="mb-4">
+    <h1 class='text-center mb-0'>
+      <%= Date.today.strftime("%e %b %Y") %>
+    </h1>
+    <div class="text-center">
+      <%= link_to   '👉 Create Today Menu 👈', new_menu_path, class: 'text-decoration-none fw-bold text-secondary' %>
+    </div>
+  </header>
+  <div class='col-8 '>
+    <div class="card">
+      <div class="card-header d-flex justify-content-center">
+        <h2> Dishes </h2>
+        <%= link_to  new_dish_path do %>
+          <i class="fa fa-plus fs-4"></i>
+        <%end %>
+      </div>
+      <div class="d-flex gap-3 m-3 ">
+        <%= render 'dishes/dishes' %>
+      </div>
+    </div>
+  </div>
+
+  <div class='col-4'>
+    <div class="card">
+      <div class="card-header d-flex justify-content-center">
+        <h2 class='text-decoration-none'>Categories</h2>
+        <%= link_to  new_category_path do %>
+          <i class="fa fa-plus fs-4"></i>
+        <%end %>
+      </div>
+      <div class="d-flex gap-3 m-3">
+        <%= render 'categories/categories' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col mt-3">
+    <div class="card">
+      <div class="card-header d-flex justify-content-center">
+        <h2 class="text-decoration-none ">Menus</h2>
+        <%= link_to  new_menu_path do %>
+          <i class="fa fa-plus fs-4"></i>
+        <%end %>
+      </div>
+      <div class="card-body mt-1 d-flex flex-wrap justify-content-center">
+        <%= render 'menus/render_menu' %>
+      </div>
+    </div>
+  </div>
+</div>
