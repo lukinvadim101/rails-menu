@@ -1,5 +1,6 @@
-<div class="card p-3 m-auto mt-5" style="width: 400px;">
-  <%= form_with model: @menu do |menu_form| %>
+<div class="card p-3 m-auto mt-5" style="width: 450px;">
+
+  <%= nested_form_for @menu do |menu_form| %>
     <div class="my-3 ">
       <h2>
         <%= menu_form.label :date %>
@@ -8,83 +9,52 @@
         <%= menu_form.date_select :date %>
       </div>
     </div>
-   <div id='section'>
-     <%= menu_form.fields_for :dish_menus do |dish_menus_form| %>
-       <div class="d-flex align-items-center my-1">
-         <div class="d-flex">
-           <span>✔️</span>
-           <span class="mx-1"><%= dish_menus_form.check_box :included %></span>
-         </div>
-         <div class="mx-2">
+    <%= menu_form.fields_for :dish_menus do |dish_menus_form| %>
+      <% random_dish_id = Dish.all.map(&:id).sample %>
+      <div class="d-flex align-items-center my-1 justify-content-between">
+        <div class="d-flex">
+          <span>✔️</span>
+          <span class="mx-1"><%= dish_menus_form.check_box :included %></span>
+        </div>
+        <div class="mx-2">
+          <%=  dish_menus_form.select :dish_id,
+                                      @dishes.map{ |dish| [dish.name, dish.id] },
+                                      class: 'form-control',
+                                      :selected => @dishes[dish_menus_form.index.to_i].id
+                                      # :selected => Dish.find(random_dish_id).id
+          %>
+        </div>
+        <div class="justify-items-end">
+          <%= dish_menus_form.text_field :price,
+                                         placeholder: "Price",
+                                         # value: find_last_dish_price(random_dish_id),
+                                         value: find_last_dish_price(@dishes[dish_menus_form.index.to_i].id),
+                                         class: 'form-control py-0'
+          %>
+        </div>
 
-           <%=  dish_menus_form.select :dish_id,
-                                       Dish.all.map{ |dish| [dish.name, dish.id] },
-                                       class: 'form-control',
-                                       :selected => Dish.all[dish_menus_form.index].id
-           %>
-         </div>
-         <div class="justify-items-end">
-           <%= dish_menus_form.text_field :price,
-                                          placeholder: "Price",
-                                          value: Dish.all[dish_menus_form.index].price,
-                                          class: 'form-control py-0' %>
-         </div>
-         <div class="d-flex">
-           <span class="mx-1"><%= dish_menus_form.check_box :_destroy %></span>
-           <span><%= dish_menus_form.label :_destroy, "❌" %></span>
-         </div>
+       <div>
+         <%= dish_menus_form.link_to_remove "", class: 'btn btn-outline-secondary fa-solid fa-trash my-1' %>
        </div>
-
-     <% end %>
-
-    <div class='links'>
-      <button id="btn" class="btn btn-info" type="button">add</button>
-    </div>
-    <div class="text-center">
-      <%= menu_form.submit  class:"btn btn-primary mt-4" %>
-    </div>
-
-
-  <% end %>
-  <script src="public/javascripts/nested_form.js"></script>
-
-  <%= nested_form_for @menu do |f| %>
-      <%= f.text_field :date %>
-    <%= f.fields_for :dish_menus do |task_form| %>
-      <%= task_form.text_field :dish_id %>
-      <%= task_form.link_to_remove "Remove this task" %>
+      </div>
     <% end %>
-    <p><%= f.link_to_add "Add a task", :dish_menus %></p>
+    <p><%= menu_form.link_to_add "", :dish_menus, class: 'btn btn-outline-secondary fa-solid fa-plus mx-1'%></p>
+    <div class='my-3 text-center'><%= menu_form.submit 'Save', class: 'btn btn-outline-secondary' %></div>
   <%end %>
 </div>
 
-  <script>
-      console.log(2222)
-  </script>
+<script>
+  document.querySelectorAll("select").forEach( s => s.addEventListener('change',(e)=> {
+      const selectName = e.target.name.slice(0, -9);
+      const selectId =
+          <%= javascript_tag do %>
+          window.productsURL = '<%= j products_url %>';
+      <% end %>
+          <% @a =  %>e.target.value
+          `<% find_last_dish_price(${selectId}) %>`
+      document.getElementsByName(`${selectName}[price]`)[0].value
+  }))
+</script>
 
 
-  <script>
-      const btn = document.getElementById('btn')
-      const section = document.getElementById('section')
-      const dishCount = <%= Dish.count %>
-          <%= @d = Dish.ids %>
 
-          btn.addEventListener('click',
-              ()=> {
-
-                  console.log(1)
-
-              })
-
-      window.onload = function() {
-          if (window.jQuery) {
-              // jQuery is loaded
-              console.log("jQuery has loaded!");
-          } else {
-              // jQuery is not loaded
-              console.log("jQuery has not loaded!");
-          }
-      }
-
-
-  </script>

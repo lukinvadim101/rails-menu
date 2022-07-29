@@ -1,10 +1,18 @@
-<h3 class="text-center"><%= @category.category %>!</h3>
-<div class="d-flex justify-content-center">
-  <%= button_to @category, method: :delete, class:"btn px-3" do %>
-    <i class="fa-solid fa-trash"></i>
-  <%end %>
-  <%= link_to  edit_category_path(@category[:id]) , class:"btn px-2" do %>
-    <i class="fa-solid fa-gear"></i>
-  <%end %>
+<div class="d-flex justify-content-center mt-5">
+  <div class="card p-2 mx-2 text-center" style="width: 40em">
+    <h3 class="text-center"><%= @category.name %></h3>
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+      <%= @category.dishes.count %>
+    </span>
+    <%= @category.dishes.map{  |d| d.name  }%>
+    <hr class="mx-5">
+    <div class="d-flex justify-content-center">
+      <%= button_to @category, method: :delete, class:"btn px-3" do %>
+        <i class="fa-solid fa-trash"></i>
+      <%end %>
+      <%= link_to  edit_category_path(@category[:id]) , class:"btn px-2" do %>
+        <i class="fa-solid fa-gear"></i>
+      <%end %>
+    </div>
+  </div>
 </div>
-

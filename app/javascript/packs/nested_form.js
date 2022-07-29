@@ -1,3 +1,4 @@
+
 (function($) {
   window.NestedFormEvents = function() {
     this.addFields = $.proxy(this.addFields, this);

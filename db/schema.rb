@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_25_173506) do
+ActiveRecord::Schema.define(version: 2022_07_29_203104) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "category"
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2022_07_25_173506) do
     t.integer "dish_id"
     t.integer "menu_id"
     t.boolean "included"
+    t.index ["dish_id", "menu_id"], name: "index_dish_menus_on_dish_id_and_menu_id", unique: true
   end
 
   create_table "dishes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

@@ -53,3 +53,4 @@ gem "font-awesome-sass"
 gem 'pry'
 gem 'cocoon'
 gem "nested_form"
+gem 'jquery-rails'

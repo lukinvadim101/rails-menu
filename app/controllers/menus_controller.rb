@@ -1,19 +1,21 @@
 class MenusController < ApplicationController
   before_action :set_menu, only: %i[show edit update destroy]
+  before_action :set_dishes, only: %i[edit new index destroy]
 
   def new
-    @dishes = Dish.all
     @menu = Menu.new
-    @dishes.length.times { @menu.dish_menus.build }
+    @dishes.count.times { @menu.dish_menus.build }
   end
 
   def index
     @menus = Menu.all
-    @dishes = Dish.all
     @categories = Category.all
   end
 
-  def edit; end
+  def edit
+    redirect_to new_menu_path, alert: 'Must be unique' unless @menu.save
+
+  end
 
   def destroy
     @menu.destroy
@@ -28,6 +30,7 @@ class MenusController < ApplicationController
   def create
     # binding.pry
     @menu = Menu.create(menu_params)
+    redirect_to new_menu_path, alert: 'Must be unique' unless @menu.save
     redirect_to root_path, notice: 'Menu was created' if @menu.save
   end
 
@@ -37,6 +40,10 @@ class MenusController < ApplicationController
 
   def set_menu
     @menu = Menu.find(params[:id])
+  end
+
+  def set_dishes
+    @dishes = Dish.all
   end
 
   def menu_params
