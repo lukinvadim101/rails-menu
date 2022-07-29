@@ -12,15 +12,13 @@
       </span>
     </div>
     <div class="card-body justify-content-between">
-        <%  m.dishes.each do |d|%>
-            <%=  d.price  %>
-            <%=  d.name  %>
+        <%  m.dish_menus.each do |d|%>
+            <div>
+              <b> id </b> <%=  d.id  %>
+              <b> price </b> <%=  d.price  %>
+              <b> Name </b><%= Dish.find( d.dish_id).name %>
+            </div>
         <% end %>
-       <%= m.inspect %>
-
-
-
-
     </div>
     <div class="card-footer text-muted d-flex justify-content-end">
        <span class="m-2"> <b>Total:</b>  </span>

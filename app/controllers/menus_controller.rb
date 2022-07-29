@@ -1,10 +1,10 @@
 class MenusController < ApplicationController
   before_action :set_menu, only: %i[show edit update destroy]
 
-
   def new
+    @dishes = Dish.all
     @menu = Menu.new
-    @dish_menu = @menu.dish_menus.build
+    @dishes.length.times { @menu.dish_menus.build }
   end
 
   def index
@@ -26,6 +26,7 @@ class MenusController < ApplicationController
   end
 
   def create
+    # binding.pry
     @menu = Menu.create(menu_params)
     redirect_to root_path, notice: 'Menu was created' if @menu.save
   end
@@ -39,6 +40,6 @@ class MenusController < ApplicationController
   end
 
   def menu_params
-    params.require(:menu).permit(:date, :id, dish_menus_attributes: %i[id dish_id price menu_id included])
+    params.require(:menu).permit(:date, :id, dish_menus_attributes: %i[dish_id price menu_id included id _destroy])
   end
 end

@@ -7,9 +7,18 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
+require("jquery")
+require("@nathanvda/cocoon")
+require("add_row_to_form")
+require("jquery_nested_form")
 
-import "font-awesome";
+import "nes"
 
+import "@nathanvda/cocoon"
+import "cocoon";
+import "jquery";
+import "@oddcamp/cocoon-vanilla-js";
+console.log('Hello from application.js')
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference

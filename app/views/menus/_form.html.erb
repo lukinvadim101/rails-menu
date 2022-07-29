@@ -1,6 +1,6 @@
 <div class="card p-3 m-auto mt-5" style="width: 400px;">
-  <%= form_for @menu do |menu_form| %>
-    <div class="my-2 ">
+  <%= form_with model: @menu do |menu_form| %>
+    <div class="my-3 ">
       <h2>
         <%= menu_form.label :date %>
       </h2>
@@ -8,32 +8,83 @@
         <%= menu_form.date_select :date %>
       </div>
     </div>
+   <div id='section'>
+     <%= menu_form.fields_for :dish_menus do |dish_menus_form| %>
+       <div class="d-flex align-items-center my-1">
+         <div class="d-flex">
+           <span>✔️</span>
+           <span class="mx-1"><%= dish_menus_form.check_box :included %></span>
+         </div>
+         <div class="mx-2">
 
-    <% Category.all.each do |category|  %>
-      <%= category.category %>
-        <% category.dishes.each  do | dish| %>
-          <%= menu_form.fields_for :dish_menus do |dish_menus_form| %>
-            <div class="d-flex justify-content-between align-items-center my-1">
-              <div class="mb-1 mx-2">
-                <%= dish_menus_form.check_box :included, checked: dish_included_in_menu?(@menu.id, dish.id) %>
-              </div>
-              <h5>  <%= dish.name %> </h5>
-              <div class="d-flex justify-content-end align-items-center ">
-                <%= dish_menus_form.label :price, '$' %>
-                <span class="mx-2"> <%= dish.price_type %> </span>
-                <%= dish_menus_form.text_field :price,
-                                               value: dish_price_in_menu(@menu.id, dish.id),
-                                               class: "form-control w-25 " %>
-                <%= dish_menus_form.hidden_field :dish_id, value: dish.id %>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
-      <% end %>
+           <%=  dish_menus_form.select :dish_id,
+                                       Dish.all.map{ |dish| [dish.name, dish.id] },
+                                       class: 'form-control',
+                                       :selected => Dish.all[dish_menus_form.index].id
+           %>
+         </div>
+         <div class="justify-items-end">
+           <%= dish_menus_form.text_field :price,
+                                          placeholder: "Price",
+                                          value: Dish.all[dish_menus_form.index].price,
+                                          class: 'form-control py-0' %>
+         </div>
+         <div class="d-flex">
+           <span class="mx-1"><%= dish_menus_form.check_box :_destroy %></span>
+           <span><%= dish_menus_form.label :_destroy, "❌" %></span>
+         </div>
+       </div>
 
+     <% end %>
 
-    <div class="text-center">
-      <%= menu_form.submit  class:"btn btn-primary" %>
+    <div class='links'>
+      <button id="btn" class="btn btn-info" type="button">add</button>
     </div>
+    <div class="text-center">
+      <%= menu_form.submit  class:"btn btn-primary mt-4" %>
+    </div>
+
+
   <% end %>
+  <script src="public/javascripts/nested_form.js"></script>
+
+  <%= nested_form_for @menu do |f| %>
+      <%= f.text_field :date %>
+    <%= f.fields_for :dish_menus do |task_form| %>
+      <%= task_form.text_field :dish_id %>
+      <%= task_form.link_to_remove "Remove this task" %>
+    <% end %>
+    <p><%= f.link_to_add "Add a task", :dish_menus %></p>
+  <%end %>
 </div>
+
+  <script>
+      console.log(2222)
+  </script>
+
+
+  <script>
+      const btn = document.getElementById('btn')
+      const section = document.getElementById('section')
+      const dishCount = <%= Dish.count %>
+          <%= @d = Dish.ids %>
+
+          btn.addEventListener('click',
+              ()=> {
+
+                  console.log(1)
+
+              })
+
+      window.onload = function() {
+          if (window.jQuery) {
+              // jQuery is loaded
+              console.log("jQuery has loaded!");
+          } else {
+              // jQuery is not loaded
+              console.log("jQuery has not loaded!");
+          }
+      }
+
+
+  </script>

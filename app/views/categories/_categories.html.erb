@@ -1,5 +1,5 @@
 <% @categories.each do |category| %>
-  <div type="button" class="card p-2 text-center" style="min-width: 33%">
+  <div type="button" class="card p-2 mx-2 text-center" style="min-width: 25%">
     <%= link_to category[:category],
         category_path(category[:id]),
         class: "text-primary  card-title h5 mb-0 text-decoration-none "

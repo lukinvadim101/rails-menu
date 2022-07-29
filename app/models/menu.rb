@@ -3,9 +3,14 @@ class Menu < ApplicationRecord
   has_many :dishes, through: :dish_menus
   before_save :call_before_save
 
-  accepts_nested_attributes_for :dish_menus, reject_if: proc { |attributes| attributes['included'] == '0' }
+
+  validates_presence_of :dish_menus, message: 'Can not be blank!'
+
+  accepts_nested_attributes_for :dish_menus,
+                                allow_destroy: true,
+                                reject_if: proc { |attributes| attributes['included'] == '0' }
 
   def call_before_save
-    puts dish_menus.inspect
+    puts self
   end
 end
